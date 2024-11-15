@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function MyApp() {
+        const time1 = new Date().toLocaleTimeString();
+        const [time, setTime] = React.useState(time1);
+
+        React.useEffect(() => {
+          const intervalId = setInterval(() => {
+            setTime(new Date().toLocaleTimeString());
+          }, 1000);
+
+          return () => clearInterval(intervalId); // Clear interval on component unmount
+        }, []);
+
+        return React.createElement("header", null, `Hello React! It's ${time}`);
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(React.createElement(MyApp));
+    </script>
+  </body>
+</html>
