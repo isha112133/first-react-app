@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Intro from "./components/intro";
+// import Intro from "./components/intro";
+import Challenge1 from "./components/challenge1";
 
 // index.js why? => because webpack which is the module bundler in this project expects the entry point to be called index.js
 // What JSX? => Declarative syntax to describe what components look like and how they work.
@@ -62,7 +63,8 @@ const App = () => {
   // }
   return (
     <div>
-      <Intro />
+      {/* <Intro /> */}
+      <Challenge1 />
       <Header />
       <Menu />
       <Footer />
@@ -77,7 +79,7 @@ function Header() {
     // textTransform: "uppercase",
   };
   return (
-    <header className="header footer">
+    <header className="header">
       <h1 style={style}>Fast React Pizza Co.</h1>
     </header>
   );
@@ -101,20 +103,23 @@ function Menu() {
     <main className="menu">
       <h2>Our menu</h2>
       {/* {numPizzas > 0 && ( */}
-      {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza, index) => (
-            <Pizza
-              key={index}
-              pizzaObj={pizza}
-              // key={index}
-              // name={item.name}
-              // ingredients={item.ingredients}
-              // photoName={item.photoName}
-              // price={item.price}
-            />
-          ))}
-        </ul>
+      {numPizzas > 0 ? ( // React fragment- group some elements without leaving any trace in HTML tree, so in the DOM. if we want component directly in the root. Basically allows us to have more than just 1 element inside a piece of JSX.
+        <React.Fragment key="jejej">
+          <p>Authentic Italian cuisine. 6 creative dishes to choose from. All from our stone oven, all organic, all delicious.</p>
+          <ul className="pizzas">
+            {pizzas.map((pizza, index) => (
+              <Pizza
+                key={index}
+                pizzaObj={pizza}
+                // key={index}
+                // name={item.name}
+                // ingredients={item.ingredients}
+                // photoName={item.photoName}
+                // price={item.price}
+              />
+            ))}
+          </ul>
+        </React.Fragment>
       ) : (
         <p>We're still working on our menu. Please come back late:</p>
       )}
@@ -178,8 +183,7 @@ function Order({ closeHour, openHour, test }) {
   return (
     <div className="order">
       <p>
-        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order
-        online. {test}
+        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order online. {test}
       </p>
     </div>
   );
@@ -193,23 +197,24 @@ function Pizza({ pizzaObj }) {
   // console.log(props);
   // conditional rendering with multiple returns
   // if (props.pizzaObj.soldOut) return <Header />;
-  if (pizzaObj.soldOut) return null;
+  // if (pizzaObj.soldOut) return null;
   console.log(pizzaObj);
   return (
-    <div className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
         <h2>{pizzaObj.name}</h2>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
+
       {/* <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
       <div>
         <h2>{props.pizzaObj.name}</h2>
         <p>{props.pizzaObj.ingredients}</p>
         <span>{props.pizzaObj.price}</span>
       </div> */}
-    </div>
+    </li>
   );
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
