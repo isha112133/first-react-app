@@ -10,7 +10,32 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- <div>
+      <h1 class="advice"></h1>
+      <button class="btn">Advice</button>
+      <p class="count">You've read <strong>23</strong> pieces of advice.</p>
+    </div> -->
     <script type="text/babel">
+      // const adviceEl = document.querySelector(".advice");
+      // const btnEl = document.querySelector(".btn");
+      // const countEl = document.querySelector(".count");
+
+      // const getAdvice = async () => {
+      //   const res = await fetch("https://api.adviceslip.com/advice");
+      //   const data = await res.json();
+      //   console.log(data);
+
+      //   advice = data.slip.advice;
+      //   count += 1;
+
+      //   countEl.textContent = count;
+      //   adviceEl.textContent = advice;
+      // };
+      // let count = 0;
+      // let advice;
+      // console.log(getAdvice());
+
+      // btnEl.addEventListener("click", getAdvice);
       function MyApp() {
         const time1 = new Date().toLocaleTimeString();
         const [time, setTime] = React.useState(time1);
